@@ -47,8 +47,35 @@ def Merge(left, right):
 	
 	return merged
 
+def quickSort(unsortedList, left, right): 
+	if(left >= right):	
+		return
+
+	pivot = partition(unsortedList, left, right)
+
+	quickSort(unsortedList, left, pivot - 1)
+	quickSort(unsortedList, pivot + 1, right)
+
+	return unsortedList
+
+def partition(unsortedList, left, right):
+	# set the pivot
+	x = unsortedList[left]
+
+	j = left
+
+	for i in range(left + 1, right):
+		if(unsortedList[i] <= x):
+			j = j + 1
+			unsortedList[j], unsortedList[i] = unsortedList[i], unsortedList[j]
+
+	unsortedList[left], unsortedList[j] = unsortedList[j], unsortedList[left]
+
+	return j
+
 if __name__ == "__main__":
 	# initialize the sample test case
 	arr = [5, 9, 20, 14, 3]
 	# print("Using selection sort -> " + str(selectionSort(arr)))
-	print(mergeSort(arr))
+	print("Merge Sort : ", mergeSort(arr))
+	print("Quick Sort : ", quickSort(arr, 0, len(arr)));
